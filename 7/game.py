@@ -1,17 +1,88 @@
-#Step 1 
-
-word_list = ["aardvark", "baboon", "camel"]
-
-#TODO-1 - Randomly choose a word from the word_list and assign it to a variable called chosen_word.
 import random
+stages = ['''
+  +---+
+  |   |
+  O   |
+ /|\  |
+ / \  |
+      |
+=========
+''', '''
+  +---+
+  |   |
+  O   |
+ /|\  |
+ /    |
+      |
+=========
+''', '''
+  +---+
+  |   |
+  O   |
+ /|\  |
+      |
+      |
+=========
+''', '''
+  +---+
+  |   |
+  O   |
+ /|   |
+      |
+      |
+=========''', '''
+  +---+
+  |   |
+  O   |
+  |   |
+      |
+      |
+=========
+''', '''
+  +---+
+  |   |
+  O   |
+      |
+      |
+      |
+=========
+''', '''
+  +---+
+  |   |
+      |
+      |
+      |
+      |
+=========
+''']
+
+word_list = ["apple", "pear", "melon"]
 chosen_word = random.choice(word_list)
+display = []
+end_of_game = False
+lives = 6
 
-#TODO-2 - Ask the user to guess a letter and assign their answer to a variable called guess. Make guess lowercase.
-guess = input("Guess a letter: ").lower()
-
-#TODO-3 - Check if the letter the user guessed (guess) is one of the leters in the chosen_word.
 for letter in chosen_word:
-    if letter == guess:
-        print("Right")
+    display.append("_")
+
+
+while not end_of_game:
+    guess = input("Guess a letter: ").lower()
+    for letter_id in range(len(chosen_word)):
+        if chosen_word[letter_id] == guess:
+            display[letter_id] = guess
+
+    if guess in chosen_word:
+        print(stages[lives])
     else:
-        print("Wrong")
+        lives -= 1
+        print(stages[lives])
+
+    print(display)
+
+    if lives < 1:
+        print("You lose.")
+        end_of_game = True
+    if not "_" in display:
+        print('You win!')
+        end_of_game = True
